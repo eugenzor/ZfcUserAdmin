@@ -59,6 +59,7 @@ class UserAdminController extends AbstractActionController
         $request = $this->getRequest();
 
         if (!$request->isPost()) {
+            $user->setPassword('');
             $form->populateFromUser($user);
             return array(
                 'editUserForm' => $form,

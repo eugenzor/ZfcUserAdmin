@@ -30,6 +30,7 @@ class User extends EventProvider implements ServiceManagerAwareInterface
 
     public function create(array $data)
     {
+
         $zfcUserOptions = $this->getServiceManager()->get('zfcuser_module_options');
         $class = $zfcUserOptions->getUserEntityClass();
         $user  = new $class;
@@ -51,6 +52,9 @@ class User extends EventProvider implements ServiceManagerAwareInterface
 
         //@TODO: Use ZfcMail(when ready)
         mail($user->getEmail(), 'Password', 'Your password is: ' . $user->getPassword());
+
+
+
         $bcrypt = new Bcrypt;
         $bcrypt->setCost($zfcUserOptions->getPasswordCost());
         $user->setPassword($bcrypt->create($user->getPassword()));
@@ -64,9 +68,13 @@ class User extends EventProvider implements ServiceManagerAwareInterface
 
         foreach($this->getOptions()->getCreateFormElements() as $element)
         {
+            if ($element == 'password') {
+                continue; //password has already set
+            }
             $func = 'set' . ucfirst($element);
             $user->$func($data[$element]);
         }
+
 
         $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $user, 'form' => $form, 'data' => $data));
         $this->getUserMapper()->insert($user);
@@ -80,8 +88,8 @@ class User extends EventProvider implements ServiceManagerAwareInterface
         {
             if($element === 'password')
             {
-                if ($data['password'] !== $user->getPassword()) {
-                    // Password does not match, so password was changed
+                if ($data['password']) {
+                    // Password is, so password was changed
                     $bcrypt = new Bcrypt();
                     $bcrypt->setCost($this->getServiceManager()->get('zfcuser_module_options')->getPasswordCost());
                     $user->setPassword($bcrypt->create($data['password']));
@@ -92,9 +100,9 @@ class User extends EventProvider implements ServiceManagerAwareInterface
                 $user->$func($data[$element]);
             }
         }
-        $this->getUserMapper()->update($user);
+
         $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $user, 'data' => $data));
-        $this->getUserMapper()->insert($user);
+        $this->getUserMapper()->update($user);
         $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('user' => $user, 'data' => $data));
         return $user;
     }
