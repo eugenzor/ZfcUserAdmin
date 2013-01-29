@@ -27,7 +27,7 @@ if (isset($fm[0]))
                 ?>
             </td>
         <?php endforeach?>
-        <td><?=join(' ', $user->getRoles())?></td>
+        <td><?=join(' ', $user->roles())?></td>
         <td>
             <a href='<?php echo $this->url('zfcadmin/zfcuseradmin/access', array('userId' => $user->getId()))?>'>Access</a> |
             <a href='<?php echo $this->url('zfcadmin/zfcuseradmin/edit', array('userId' => $user->getId()))?>'>Edit</a> |

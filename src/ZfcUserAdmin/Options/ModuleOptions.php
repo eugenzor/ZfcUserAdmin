@@ -18,21 +18,21 @@ class ModuleOptions extends AbstractOptions implements
      * @TODO: change "things" below
      * Array of "things" to show in the user list
      */
-    protected $userListElements = array('Id' => 'id', 'Email address' => 'email');
+    protected $userListElements = array('Id' => 'id', 'Email address' => 'email', 'Login'=>'username', 'Display name'=>'displayName');
 
     /**
      * Array of form elements to show when editing a user
      * Key = form label
      * Value = entity property(expecting a 'getProperty()/setProperty()' function)
      */
-    protected $editFormElements = array('Email' => 'email', 'Password' => 'password');
+    protected $editFormElements = array('Email' => 'email', 'Password' => 'password', 'Login'=>'username', 'Display name'=>'displayName');
 
     /**
      * Array of form elements to show when creating a user
      * Key = form label
      * Value = entity property(expecting a 'getProperty()/setProperty()' function)
      */
-    protected $createFormElements = array('Email' => 'email', 'Password' => 'password');
+    protected $createFormElements = array('Password' => 'password');
 
     /**
      * @var bool
