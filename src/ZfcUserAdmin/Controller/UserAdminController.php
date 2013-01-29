@@ -5,6 +5,8 @@ namespace ZfcUserAdmin\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use ZfcUserAdmin\Options\ModuleOptions;
+use Zend\Form;
+use Zend\Db\Sql\Sql;
 
 class UserAdminController extends AbstractActionController
 {
@@ -47,7 +49,7 @@ class UserAdminController extends AbstractActionController
         }
 
         $this->flashMessenger()->setNamespace('zfcuseradmin')->addMessage('The user was created');
-        return $this->redirect()->toRoute('zfcadmin/zfcuseradmin/list');
+        return $this->redirect()->toRoute('zfcadmin/zfcuseradmin/access');
     }
 
     public function editAction()
@@ -84,6 +86,67 @@ class UserAdminController extends AbstractActionController
         }
 
         return $this->redirect()->toRoute('zfcadmin/zfcuseradmin/list');
+    }
+
+    public function accessAction()
+    {
+        $userId = $this->params()->fromRoute('userId');
+
+        $allRoles = $this->getServiceLocator()->get('BjyAuthorize\Service\Authorize')->getAcl()->getRoles();
+
+        //Get checked roles
+        $db = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+        $rows = $db->query('SELECT role_id FROM user_role_linker WHERE user_id = ?')->execute(array($userId));
+        $checked = array();
+        foreach($rows as $row){
+            $checked[]=$row['role_id'];
+        }
+
+
+        //Get available roles
+        $roles = array();
+        $options = array();
+        $insertData = array();
+        foreach($allRoles as $role){
+            if ($role == 'bjyauthorize-identity'){
+                continue;
+            }else{
+                $roles[] = $role;
+                $options[$role] = $role;
+            }
+        }
+
+        //Create form
+        $form = new Form\Form();
+        $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/zfcuseradmin/access', array('userId'=>$userId)));
+        $checkboxes = new Form\Element\MultiCheckbox('roles');
+        $checkboxes->setLabel('Roles');
+        $checkboxes->setValueOptions($options);
+
+        $form->add($checkboxes);
+
+        $submit = new Form\Element\Submit('go');
+        $submit->setValue('Save');
+        $form->add($submit);
+
+        if ($this->getRequest()->isPost()){
+            $linker = new \Zend\Db\TableGateway\TableGateway('user_role_linker', $db);
+            $linker->delete(array('user_id'=>$userId));
+
+            $data = $this->getRequest()->getPost();
+            $form->setData($data);
+            $newRoles = $this->params()->fromPost('roles');
+            if ($newRoles){
+                foreach($newRoles as $role){
+                    $linker->insert(array('user_id'=>$userId, 'role_id'=>$role));
+                }
+            }
+            return $this->redirect()->toRoute('zfcadmin/zfcuseradmin/list');
+        }else{
+            $checkboxes->setValue($checked);
+        }
+
+        return array('form'=>$form);
     }
 
     public function setOptions(ModuleOptions $options)

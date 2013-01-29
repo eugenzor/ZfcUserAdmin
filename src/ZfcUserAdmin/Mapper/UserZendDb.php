@@ -13,7 +13,20 @@ class UserZendDb extends ZfcUserMapper
         $select->order(array('username ASC', 'display_name ASC', 'email ASC'));
         //$resultSet = $this->select($select);
 
-        $resultSet = new HydratingResultSet($this->getHydrator(), $this->getEntityPrototype());
+        $linker = new \Zend\Db\TableGateway\TableGateway('user_role_linker', $this->getDbSlaveAdapter());
+        $links = $linker->select();
+        $roleMap = array();
+        foreach($links as $link){
+            if (isset($roleMap[$link->user_id])){
+                $roleMap[$link->user_id][]=$link->role_id;
+            }else{
+                $roleMap[$link->user_id] = array($link->role_id);
+            }
+        }
+
+        $entity = $this->getEntityPrototype();
+        $entity->setRoleMap($roleMap);
+        $resultSet = new HydratingResultSet($this->getHydrator(), $entity);
         $adapter = new \Zend\Paginator\Adapter\DbSelect($select, $this->getSlaveSql(), $resultSet);
         $paginator = new \Zend\Paginator\Paginator($adapter);
 

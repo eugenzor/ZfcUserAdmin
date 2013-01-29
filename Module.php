@@ -77,6 +77,7 @@ class Module
                         $mapper = new $mapperClass;
                         $mapper->setDbAdapter($sm->get('zfcuser_zend_db_adapter'));
                         $entityClass = $zfcUserOptions->getUserEntityClass();
+
                         $mapper->setEntityPrototype(new $entityClass);
                         $mapper->setHydrator(new \ZfcUser\Mapper\UserHydrator());
                     } else {

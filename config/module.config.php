@@ -67,6 +67,17 @@ return array(
                                     ),
                                 ),
                             ),
+                            'access' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/access/:userId',
+                                    'defaults' => array(
+                                        'controller' => 'zfcuseradmin',
+                                        'action'     => 'access',
+                                        'userId'     => 0
+                                    ),
+                                ),
+                            ),
                         ),
                     ),
                 ),

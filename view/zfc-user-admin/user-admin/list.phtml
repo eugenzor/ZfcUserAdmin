@@ -6,31 +6,34 @@ if (isset($fm[0]))
 }*/
 ?><table class="table">
 
-    <?php
-    // Table header
-    echo "<tr>\n";
-    foreach($this->userlistElements as $name => $element) {
-        echo "<th>";
-        echo $this->escapeHtml($name ?: $element);
-        echo "</th>\n";
-    }
-    echo "<th></th>\n";
-    echo "</tr>\n";
 
-    // Users
-    foreach ($this->users as $user)
-    {
-        echo "<tr>";
-        foreach($this->userlistElements as $element)
-        {
-            $func = 'get' . ucfirst($element);
-            echo "<td class='row_" . $element . "'>" . $user->$func() . "</td>";
-        }
-        $editLink = $this->url('zfcadmin/zfcuseradmin/edit', array('userId' => $user->getId()));
-        $deleteLink = $this->url('zfcadmin/zfcuseradmin/remove', array('userId' => $user->getId()));
-        echo "<td><a href='" . $editLink . "'>Edit</a> | <a href='" . $deleteLink . "'>Delete</a></td></tr>";
-    }
-    ?>
+    <?php // Table header ?>
+    <tr>
+    <?php foreach($this->userlistElements as $name => $element):?>
+        <th><?php echo $this->escapeHtml($name ?: $element)?></th>
+    <?php endforeach?>
+    <th>Roles</th>
+    <th>Actions</th>
+    </tr>
+
+    <?php // Users
+    foreach ($this->users as $user):?>
+        <tr>
+        <?php foreach($this->userlistElements as $element):?>
+            <td class='row_<?php echo $element?>'>
+                <?php
+                    $func = 'get' . ucfirst($element);
+                    echo $user->$func()
+                ?>
+            </td>
+        <?php endforeach?>
+        <td><?=join(' ', $user->getRoles())?></td>
+        <td>
+            <a href='<?php echo $this->url('zfcadmin/zfcuseradmin/access', array('userId' => $user->getId()))?>'>Access</a> |
+            <a href='<?php echo $this->url('zfcadmin/zfcuseradmin/edit', array('userId' => $user->getId()))?>'>Edit</a> |
+            <a href='<?php echo $this->url('zfcadmin/zfcuseradmin/remove', array('userId' => $user->getId()))?>'>Delete</a>
+        </td>
+    <?php endforeach ?>
 </table>
 <?php echo $this->paginationControl($this->users, 'Sliding', 'zfc-user-admin/user-admin/pagination_userlist.phtml'); ?>
 
