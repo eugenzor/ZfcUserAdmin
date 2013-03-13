@@ -12,8 +12,8 @@ if (isset($fm[0]))
     <?php foreach($this->userlistElements as $name => $element):?>
         <th><?php echo $this->escapeHtml($name ?: $element)?></th>
     <?php endforeach?>
-    <th>Roles</th>
-    <th>Actions</th>
+    <th><?php echo $this->translate('Roles')?></th>
+    <th><?php echo $this->translate('Actions')?></th>
     </tr>
 
     <?php // Users
