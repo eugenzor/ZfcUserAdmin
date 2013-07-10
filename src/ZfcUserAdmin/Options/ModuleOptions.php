@@ -19,7 +19,7 @@ class ModuleOptions extends AbstractOptions implements
      * Key = Label in the list
      * Value = entity property(expecting a 'getProperty())
      */
-    protected $userListElements = array('Id' => 'id', 'Email address' => 'email');
+    protected $userListElements = array('Id' => 'id', 'Email address' => 'email', 'User name' => 'username',  'Display name' => 'display_name', 'Roles' => 'roles_string');
 
     /**
      * Array of form elements to show when editing a user
