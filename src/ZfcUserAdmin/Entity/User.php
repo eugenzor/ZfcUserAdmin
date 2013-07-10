@@ -18,12 +18,17 @@ class User extends Zfcuser
         $this->roleMap = $roleMap;
     }
 
-    function roles()
+    function getRoles()
     {
         $id = $this->getId();
         if (isset($this->roleMap[$id])){
             return $this->roleMap[$id];
         }
         return array();
+    }
+
+    function getRolesString()
+    {
+        return join(", ", $this->getRoles());
     }
 }

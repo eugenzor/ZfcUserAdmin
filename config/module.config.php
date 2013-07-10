@@ -94,7 +94,7 @@ return array(
                     'create' => array(
                         'label' => 'New User',
                         'route' => 'zfcadmin/zfcuseradmin/create',
-                    ),                        
+                    ),
                 ),
             ),
         ),
