@@ -42,7 +42,7 @@ return array(
             if (!$zfcUserAdminOptions->getAllowPasswordChange()) {
                 $filter->remove('password')->remove('passwordVerify');
             } else {
-                $filter->get('password')->setRequired(false);
+                $filter->get('password')->setRequired(false)->setAllowEmpty(true);
                 $filter->remove('passwordVerify');
             }
             $form->setInputFilter($filter);

@@ -1,11 +1,16 @@
 <?php
 $getters = array();
 foreach ($this->userlistElements as $element) {
-    $parts = explode('_', $element);
-    array_walk($parts, function (&$val) {
-        $val = ucfirst($val);
-    });
-    $getters[$element] = 'get' . implode('', $parts);
+    if ($element == 'roles_string'){
+        $getters[$element] = 'fetchRolesString';
+    }else{
+        $parts = explode('_', $element);
+        array_walk($parts, function (&$val) {
+            $val = ucfirst($val);
+        });
+        $getters[$element] = 'get' . implode('', $parts);
+    }
+
 }
 ?>
 

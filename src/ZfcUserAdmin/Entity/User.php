@@ -18,7 +18,7 @@ class User extends Zfcuser
         $this->roleMap = $roleMap;
     }
 
-    function getRoles()
+    function fetchRoles()
     {
         $id = $this->getId();
         if (isset($this->roleMap[$id])){
@@ -27,8 +27,8 @@ class User extends Zfcuser
         return array();
     }
 
-    function getRolesString()
+    function fetchRolesString()
     {
-        return join(", ", $this->getRoles());
+        return join(", ", $this->fetchRoles());
     }
 }
