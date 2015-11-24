@@ -11,13 +11,25 @@ use ZfcUser\Validator\NoRecordExists;
 use ZfcUserAdmin\Form;
 use ZfcUserAdmin\Options;
 use ZfcUserAdmin\Validator\NoRecordExistsEdit;
+use ZfcUserAdmin\Service\ArrowManager;
 
 return array(
     'invokables' => array(
         'ZfcUserAdmin\Form\EditUser' => 'ZfcUserAdmin\Form\EditUser',
         'zfcuseradmin_user_service' => 'ZfcUserAdmin\Service\User',
+        'zfcuseradmin_roles' => 'ZfcUserAdmin\Service\Roles',
     ),
     'factories' => array(
+        'zfcuseradmin_arrow_manager' => function (ServiceLocatorInterface $sm) {
+            $arrowManager = new ArrowManager();
+            $config = $sm->get('Config');
+            
+            if (isset($config['zfcadmin']['registered_role'])){
+                $arrowManager->set('registered_role', $config['zfcadmin']['registered_role']);
+            }
+            return $arrowManager;
+        },
+
         'zfcuseradmin_module_options' => function (ServiceLocatorInterface $sm) {
             $config = $sm->get('Config');
             return new Options\ModuleOptions(isset($config['zfcuseradmin']) ? $config['zfcuseradmin'] : array());
@@ -42,7 +54,7 @@ return array(
             if (!$zfcUserAdminOptions->getAllowPasswordChange()) {
                 $filter->remove('password')->remove('passwordVerify');
             } else {
-                $filter->get('password')->setRequired(false)->setAllowEmpty(true);
+                $filter->get('password')->setRequired(false);
                 $filter->remove('passwordVerify');
             }
             $form->setInputFilter($filter);
@@ -71,8 +83,9 @@ return array(
             $form->setInputFilter($filter);
             return $form;
         },
-        'zfcuser_user_mapper' => function (ServiceLocatorInterface $sm) {
+        'zfcuseradmin_user_mapper' => function (ServiceLocatorInterface $sm) {
             /** @var $config \ZfcUserAdmin\Options\ModuleOptions */
+            // Can't rewrite zfcuser_user_mapper, use new service zfcuseradmin_user_mapper
             $config = $sm->get('zfcuseradmin_module_options');
             $mapperClass = $config->getUserMapper();
             if (stripos($mapperClass, 'doctrine') !== false) {
@@ -89,7 +102,8 @@ return array(
                 $mapper->setDbAdapter($sm->get('zfcuser_zend_db_adapter'));
                 $entityClass = $zfcUserOptions->getUserEntityClass();
                 $mapper->setEntityPrototype(new $entityClass);
-                $mapper->setHydrator(new UserHydrator());
+                $mapper->setHydrator($sm->get('zfcuser_user_hydrator'));
+                $mapper->setTableName($zfcUserOptions->getTableName());
             }
 
             return $mapper;

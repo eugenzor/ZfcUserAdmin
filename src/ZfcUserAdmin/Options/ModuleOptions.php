@@ -43,12 +43,18 @@ class ModuleOptions extends AbstractOptions implements
     protected $createUserAutoPassword = true;
 
     /**
+     * @var int
+     * Length of passwords created automatically
+     */
+    protected $autoPasswordLength = 8;
+
+    /**
      * @var bool
      * Allow change user password on user edit form.
      */
     protected $allowPasswordChange = true;
 
-    protected $userMapper = 'ZfcUserAdmin\Mapper\UserDoctrine';
+    protected $userMapper = 'ZfcUserAdmin\Mapper\UserZendDb';
 
     public function setUserMapper($userMapper)
     {
@@ -108,5 +114,15 @@ class ModuleOptions extends AbstractOptions implements
     public function setAdminPasswordChange($allowPasswordChange)
     {
         $this->allowPasswordChange = $allowPasswordChange;
+    }
+
+    public function setAutoPasswordLength($autoPasswordLength)
+    {
+        $this->autoPasswordLength = $autoPasswordLength;
+    }
+
+    public function getAutoPasswordLength()
+    {
+        return $this->autoPasswordLength;
     }
 }

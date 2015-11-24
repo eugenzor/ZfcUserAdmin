@@ -1,0 +1,48 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: eugene
+ * Date: 11/27/14
+ * Time: 5:52 PM
+ */ ?>
+
+<table class="table">
+    <tr>
+        <th>id</th>
+        <th>Role</th>
+        <th>Is default?</th>
+        <th>Parent</th>
+        <th>Actions</th>
+    </tr>
+    <?foreach($this->roles as $role):?>
+        <tr>
+            <td><?=$role['id']?></td>
+            <td><?=$role['role_id']?></td>
+            <td><?=$role['is_default']?></td>
+            <td><?=isset($this->roleDic[$role['parent_id']])?$this->roleDic[$role['parent_id']]:''?></td>
+            <td>
+                <a
+                    class="btn btn-default"
+                    href="<?=$this->url('zfcadmin/zfcroleadmin', array('action'=>'remove', 'id'=>$role['id']))?>"
+                    onclick="return confirm('Are you sure?')"
+                >
+                    <span class="glyphicon glyphicon-remove"></span>
+                    Delete
+                </a>
+            </td>
+        </tr>
+    <?endforeach;?>
+</table>
+
+<?php
+
+    $form->setAttribute('role', 'form');
+    $form->prepare();
+    echo $this->form()->openTag($form);
+?>
+<?=$this->formRow($form->get('name'))?>
+<?=$this->formRow($form->get('is_default'))?>
+<?=$this->formRow($form->get('parent_id'))?>
+<?=$this->formRow($form->get('go'))?>
+
+<?=$this->form()->closeTag($form)?>

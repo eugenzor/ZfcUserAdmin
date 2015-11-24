@@ -60,14 +60,14 @@ class UserAdminController extends AbstractActionController
                 $user = $this->getAdminUserService()->create($form, (array)$request->getPost());
                 if ($user) {
                     $this->flashMessenger()->addSuccessMessage('The user was created');
-                    return $this->redirect()->toRoute('zfcadmin/zfcuseradmin/list');
+                    return $this->redirect()->toRoute('zfcadmin/zfcuseradmin/access', array('userId'=>$user->getId()));
                 }
             }
         }
 
 
         $this->flashMessenger()->setNamespace('zfcuseradmin')->addMessage('The user was created');
-        return $this->redirect()->toRoute('zfcadmin/zfcuseradmin/access');
+        return array('createUserForm'=>$form);
 
     }
 
@@ -125,44 +125,35 @@ class UserAdminController extends AbstractActionController
     {
         $userId = $this->params()->fromRoute('userId');
 
-        $allRoles = $this->getServiceLocator()->get('BjyAuthorize\Service\Authorize')->getAcl()->getRoles();
 
-        //Get checked roles
-        $db = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-        $rows = $db->query('SELECT role_id FROM user_role_linker WHERE user_id = ?')->execute(array($userId));
-        $checked = array();
-        foreach($rows as $row){
-            $checked[]=$row['role_id'];
-        }
+        $roleMap = $this->getUserMapper()->getRoleMap();
+        $checked = isset($roleMap[$userId])?array_keys($roleMap[$userId]):array();
 
 
-        //Get available roles
-        $roles = array();
-        $options = array();
-        $insertData = array();
-        foreach($allRoles as $role){
-            if ($role == 'bjyauthorize-identity'){
-                continue;
-            }else{
-                $roles[] = $role;
-                $options[$role] = $role;
-            }
-        }
+        //Get available roles      
+        $options = $this->getServiceLocator()->get('zfcuseradmin_roles')->getAvailableRolesDictionary();
 
         //Create form
         $form = new Form\Form();
         $form->setAttribute('action', $this->url()->fromRoute('zfcadmin/zfcuseradmin/access', array('userId'=>$userId)));
         $checkboxes = new Form\Element\MultiCheckbox('roles');
         $checkboxes->setLabel('Roles');
+//        var_dump($options);
+
         $checkboxes->setValueOptions($options);
 
+
         $form->add($checkboxes);
+
+//        var_dump($checkboxes->getValue());
 
         $submit = new Form\Element\Submit('go');
         $submit->setValue('Save');
         $form->add($submit);
 
         if ($this->getRequest()->isPost()){
+            //Get checked roles
+            $db = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
             $linker = new \Zend\Db\TableGateway\TableGateway('user_role_linker', $db);
             $linker->delete(array('user_id'=>$userId));
 
@@ -199,7 +190,8 @@ class UserAdminController extends AbstractActionController
     public function getUserMapper()
     {
         if (null === $this->userMapper) {
-            $this->userMapper = $this->getServiceLocator()->get('zfcuser_user_mapper');
+            // Can't rewrite zfcuser_user_mapper, use new service zfcuseradmin_user_mapper
+            $this->userMapper = $this->getServiceLocator()->get('zfcuseradmin_user_mapper');
         }
         return $this->userMapper;
     }

@@ -8,6 +8,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'zfcuseradmin' => 'ZfcUserAdmin\Controller\UserAdminController',
+            'zfcroleadmin' => 'ZfcUserAdmin\Controller\RoleController',
+            'zfccli' => 'ZfcUserAdmin\Controller\CliController',
         ),
     ),
     'router' => array(
@@ -78,22 +80,96 @@ return array(
                                     ),
                                 ),
                             ),
+
+//                            'roles' => array(
+//                                'type' => 'Segment',
+//                                'options' => array(
+//                                    'route' => '/roles',
+//                                    'defaults' => array(
+//                                        'controller' => 'zfcuseradminrole',
+//                                        'action' => 'index'
+//                                    ),
+//                                ),
+//                            ),
+//
+//                            'addrole' => array(
+//                                'type' => 'Segment',
+//                                'options' => array(
+//                                    'route' => '/addrole',
+//                                    'defaults' => array(
+//                                        'controller' => 'zfcuseradminrole',
+//                                        'action' => 'index'
+//                                    ),
+//                                ),
+//                            ),
+
+
                         ),
                     ),
+
+                    'zfcroleadmin' => array(
+                        'type' => 'Segment',
+                        'priority' => 1000,
+                        'options' => array(
+                            'route' => '/role[/:action[/:id]]',
+                            'defaults' => array(
+                                'controller' => 'zfcroleadmin',
+                                'action'     => 'index',
+                            ),
+                        )
+                    )
                 ),
             ),
         ),
     ),
 
+    'console' => array(
+        'router' => array(
+            'routes' => array(
+                'zfcuseradmin-install' => array(
+                    'options' => array(
+                        'route'    => 'zfcuseradmin install [--adduser|-u]',
+                        'defaults' => array(
+                            'controller' => 'zfccli',
+                            'action'     => 'install'
+                        )
+                    )
+                ),
+                
+                'zfcuseradmin-adduser' => array(
+                    'options' => array(
+                        'route'    => 'zfcuseradmin adduser',
+                        'defaults' => array(
+                            'controller' => 'zfccli',
+                            'action'     => 'adduser'
+                        )
+                    )
+                )
+            )
+        )
+    ),
+    
     'navigation' => array(
         'admin' => array(
             'zfcuseradmin' => array(
                 'label' => 'Users',
                 'route' => 'zfcadmin/zfcuseradmin/list',
+                'resource' => 'route/zfcadmin/zfcuseradmin/list',
                 'pages' => array(
-                    'create' => array(
+                    'user-list' => array(
+                        'label' => 'User list',
+                        'route' => 'zfcadmin/zfcuseradmin/list',
+                    ),
+
+                    'user-create' => array(
                         'label' => 'New User',
                         'route' => 'zfcadmin/zfcuseradmin/create',
+                    ),
+
+
+                    'role-list' => array(
+                        'label' => 'Roles',
+                        'route' => 'zfcadmin/zfcroleadmin',
                     ),
                 ),
             ),

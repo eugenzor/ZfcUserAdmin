@@ -37,8 +37,6 @@ class EditUser extends Register
 
             $password = $this->get('password');
             $password->setAttribute('required', false);
-
-
             $password->setOptions(array('label' => 'Password (only if want to change)'));
 
             $this->remove('passwordVerify');
@@ -73,8 +71,6 @@ class EditUser extends Register
 
         $this->getEventManager()->trigger('init', $this);
     }
-
-
 
     public function setUser($userEntity)
     {

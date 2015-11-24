@@ -37,6 +37,7 @@ class User extends EventProvider implements ServiceManagerAwareInterface
      */
     protected $zfcUserOptions;
 
+
     /**
      * @param Form $form
      * @param array $data
@@ -50,7 +51,7 @@ class User extends EventProvider implements ServiceManagerAwareInterface
 
         $argv = array();
         if ($this->getOptions()->getCreateUserAutoPassword()) {
-            $argv['password'] = Rand::getString(8);
+            $argv['password'] = $this->generatePassword();
         } else {
             $argv['password'] = $user->getPassword();
         }
@@ -92,7 +93,7 @@ class User extends EventProvider implements ServiceManagerAwareInterface
         // then check if admin wants to change user password
         if ($this->getOptions()->getAllowPasswordChange()) {
             if (!empty($data['reset_password'])) {
-                $argv['password'] = Rand::getString(8);
+                $argv['password'] = $this->generatePassword();
             } elseif (!empty($data['password'])) {
                 $argv['password'] = $data['password'];
             }
@@ -114,6 +115,14 @@ class User extends EventProvider implements ServiceManagerAwareInterface
         $this->getUserMapper()->update($user);
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $argv);
         return $user;
+    }
+
+    /**
+     * @return string
+     */
+    public function generatePassword()
+    {
+        return Rand::getString($this->getOptions()->getAutoPasswordLength());
     }
 
     protected function getAccessorName($property, $set = true)
