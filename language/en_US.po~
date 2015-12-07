@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-30 19:18+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:15
+msgid "Users"
+msgstr ""
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:21
+msgid "Add New User"
+msgstr ""
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:48
+msgid "Access"
+msgstr ""
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:52
+msgid "Edit"
+msgstr ""
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:56
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/edit.phtml:13
+msgid "Really delete user?"
+msgstr ""
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:57
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/edit.phtml:14
+msgid "Delete"
+msgstr ""
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/confirmation/sent.phtml:1
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:11
+msgid "zfcuseradmin.account.not_activated"
+msgstr ""
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/confirmation/sent.phtml:9
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:19
+msgid "zfcuseradmin.account.resend_confirmation"
+msgstr ""
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:8
+msgid "Hello"
+msgstr ""
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:25
+msgid "Sign Out"
+msgstr ""
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Service/Mailer.php:34
+msgid "zfcuseradmin.confirmation_mail.subject"
+msgstr ""
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Service/Mailer.php:36
+#: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Service/Mailer.php:37
+msgid "zfcuseradmin.confirmation_mail.body_txt"
+msgstr ""
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Controller/ConfirmationController.php:50
+msgid "zfcuseradmin.activation_key_is_wrong"
+msgstr ""
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Controller/ConfirmationController.php:65
+msgid "zfcuseradmin.activation_key_succesfull"
+msgstr ""

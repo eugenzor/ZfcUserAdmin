@@ -12,6 +12,7 @@ use ZfcUser\Entity\User as Zfcuser;
 class User extends Zfcuser
 {
     protected $roleMap;
+    protected $salt='OybedVew5';
 
     function setRoleMap($roleMap)
     {
@@ -30,5 +31,30 @@ class User extends Zfcuser
     function fetchRolesString()
     {
         return join(", ", $this->fetchRoles());
+    }
+    
+    function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+    
+    /**
+     * Get user confirmation key
+     * @return string Confirmation key
+     */
+    public function obtainConfirmationKey()
+    {
+        return md5($this->getId() . $this->salt);
+        
+    }
+    
+    /**
+     * Check if confirmation key correct
+     * @param type $checkedKey
+     * @return bool result of confiration check
+     */
+    public function isConfirmationKeyCorrect($checkedKey)
+    {
+        return ($this->obtainConfirmationKey() == $checkedKey);
     }
 }

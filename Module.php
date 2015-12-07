@@ -81,18 +81,33 @@ class Module implements ServiceProviderInterface,
 //            });
         }
 
-        if (!empty($config['zfcadmin']['registered_role'])){
+        $arrowManager = $sm->get('zfcuseradmin_arrow_manager');
+        if ($arrowManager->get('registered_role')){
             $zfcServiceEvents = $sm->get('zfcuser_user_service')->getEventManager();
             $zfcServiceEvents->attach('register.post', function($e) use ($sm) {
                 $arrowManager = $sm->get('zfcuseradmin_arrow_manager');
                 $user = $e->getParam('user');
                 $userId = $user->getId();
 
-                $adapter = $sm->get('Zend\Db\Adapter\Adapter');
-                $table = new \Zend\Db\TableGateway\TableGateway('user_role_linker', $adapter);
-                $table->insert(array('user_id'=>$userId, 'role_id'=>$arrowManager->get('registered_role')));
+                /* @var $roles \ZfcUserAdmin\Service\Roles */
+                $roles = $sm->get('zfcuseradmin_roles');
+                $roles->updateUserRoles($userId, array($arrowManager->get('registered_role')));
             });
         }
+        
+        if ($arrowManager->get('send_confirmation_message')){
+            $zfcServiceEvents = $sm->get('zfcuser_user_service')->getEventManager();
+            $zfcServiceEvents->attach('register.post', function($e) use ($sm) {
+                $arrowManager = $sm->get('zfcuseradmin_arrow_manager');
+                $mailer = $sm->get('zfcuseradmin_mailer');
+                $user = $e->getParam('user');
+                
+                $mailer->sendConfirmationMail($user);
+
+            });
+        }
+        
+        
 
 
     }

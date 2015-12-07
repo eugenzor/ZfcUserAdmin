@@ -153,18 +153,12 @@ class UserAdminController extends AbstractActionController
 
         if ($this->getRequest()->isPost()){
             //Get checked roles
-            $db = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-            $linker = new \Zend\Db\TableGateway\TableGateway('user_role_linker', $db);
-            $linker->delete(array('user_id'=>$userId));
-
             $data = $this->getRequest()->getPost();
             $form->setData($data);
             $newRoles = $this->params()->fromPost('roles');
-            if ($newRoles){
-                foreach($newRoles as $role){
-                    $linker->insert(array('user_id'=>$userId, 'role_id'=>$role));
-                }
-            }
+            /* @var $roles \ZfcUserAdmin\Service\Roles */
+            $roles = $this->getServiceLocator()->get('zfcuseradmin_roles');
+            $roles->updateUserRoles($userId, $newRoles);
             return $this->redirect()->toRoute('zfcadmin/zfcuseradmin/list');
         }else{
             $checkboxes->setValue($checked);

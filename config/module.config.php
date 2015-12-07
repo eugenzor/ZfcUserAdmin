@@ -1,5 +1,18 @@
 <?php
 return array(
+    
+        'zfcuseradmin' => array(
+        'zfcuseradmin_mapper' => 'ZfcUserAdmin\Mapper\UserZendDb',
+        'registered_role' => 2,
+        'confirmed_role' => 3,
+        'send_confirmation_message' => 1
+    ),
+    
+    'zfcuser'=>array(
+        'user_entity_class' => 'ZfcUserAdmin\Entity\User'
+    ),
+    
+    
     'view_manager' => array(
         'template_path_stack' => array(
             'zfcuseradmin' => __DIR__ . '/../view',
@@ -10,10 +23,46 @@ return array(
             'zfcuseradmin' => 'ZfcUserAdmin\Controller\UserAdminController',
             'zfcroleadmin' => 'ZfcUserAdmin\Controller\RoleController',
             'zfccli' => 'ZfcUserAdmin\Controller\CliController',
+            'zfcconfirmation' => 'ZfcUserAdmin\Controller\ConfirmationController',
+            'zfcwelcome' => 'ZfcUserAdmin\Controller\WelcomeController',
         ),
     ),
     'router' => array(
         'routes' => array(
+            'zfcuseradmin-confirmation-sent' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/user/confirmation/sent',
+                    'defaults' => array(
+                        'controller' => 'zfcconfirmation',
+                        'action' => 'sent'
+                    )
+                )
+            ),
+            
+            'zfcuseradmin-confirmation-check' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/user/confirmation/check/:id/:key',
+                    'defaults' => array(
+                        'controller' => 'zfcconfirmation',
+                        'action' => 'check'
+                    )
+                )
+            ),
+            
+            'zfcuseradmin-welcome' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/user/welcome',
+                    'defaults' => array(
+                        'controller' => 'zfcwelcome',
+                        'action' => 'index'
+                    )
+                )
+            ),
+            
+            
             'zfcadmin' => array(
                 'child_routes' => array(
                     'zfcuseradmin' => array(
@@ -175,8 +224,15 @@ return array(
             ),
         ),
     ),
+    
+    'translator' => array(
+        'translation_file_patterns' => array(
+            array(
+                'type'     => 'gettext',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern'  => '%s.mo',
+            ),
+        ),
+    ),
 
-    'zfcuseradmin' => array(
-        'zfcuseradmin_mapper' => 'ZfcUserAdmin\Mapper\UserZendDb',
-    )
 );

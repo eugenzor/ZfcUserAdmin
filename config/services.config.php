@@ -18,15 +18,21 @@ return array(
         'ZfcUserAdmin\Form\EditUser' => 'ZfcUserAdmin\Form\EditUser',
         'zfcuseradmin_user_service' => 'ZfcUserAdmin\Service\User',
         'zfcuseradmin_roles' => 'ZfcUserAdmin\Service\Roles',
+        'zfcuseradmin_mailer' => 'ZfcUserAdmin\Service\Mailer',
     ),
     'factories' => array(
         'zfcuseradmin_arrow_manager' => function (ServiceLocatorInterface $sm) {
             $arrowManager = new ArrowManager();
             $config = $sm->get('Config');
             
-            if (isset($config['zfcadmin']['registered_role'])){
-                $arrowManager->set('registered_role', $config['zfcadmin']['registered_role']);
+            if (isset($config['zfcuseradmin']['registered_role'])){
+                $arrowManager->set('registered_role', $config['zfcuseradmin']['registered_role']);
             }
+            
+            if (isset($config['zfcuseradmin']['send_confirmation_message'])){
+                $arrowManager->set('send_confirmation_message', $config['zfcuseradmin']['send_confirmation_message']);
+            }
+
             return $arrowManager;
         },
 

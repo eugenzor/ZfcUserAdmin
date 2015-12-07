@@ -20,6 +20,12 @@ class CliController extends AbstractActionController
 {
     function installAction()
     {
+        /* @var $mailer \ZfcUserAdmin\Service\Mailer */
+        $mailer = $this->getServiceLocator()->get('zfcuseradmin_mailer');
+        $mailer->sendConfirmationMail([]);
+        return;
+        
+        
         $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
         $platformName = get_class($adapter->getPlatform());
         switch ($platformName){
@@ -123,6 +129,7 @@ INSERT IGNORE INTO `user_role` (`id`, `role_id`, `is_default`, `parent_id`) VALU
             $role = $registeredRole;
         }
         $arrowManager->set('registered_role', $role);
+        $arrowManager->set('send_confirmation_message', false);
         $userService = $this->getServiceLocator()->get('zfcuser_user_service');
         /* @var $form \Zend\Form\Form */
         $form = $userService->getRegisterForm();

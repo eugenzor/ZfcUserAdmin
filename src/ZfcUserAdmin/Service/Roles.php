@@ -29,4 +29,23 @@ class Roles  implements ServiceLocatorAwareInterface
         }
         return $options;
     }
+    
+    function updateUserRoles($userId, $newRoles)
+    {
+        if (is_object($userId)){
+            $userId = $userId->getId();
+        }
+        $db = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+        $linker = new \Zend\Db\TableGateway\TableGateway('user_role_linker', $db);
+        $linker->delete(array('user_id'=>$userId));
+
+
+        if ($newRoles){
+            foreach($newRoles as $role){
+                $linker->insert(array('user_id'=>$userId, 'role_id'=>$role));
+            }
+        }
+        
+    }
+    
 }

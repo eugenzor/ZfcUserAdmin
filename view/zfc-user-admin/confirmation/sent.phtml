@@ -1,0 +1,11 @@
+<?php echo $this->translate("zfcuseradmin.account.not_activated");?>
+<form 
+    name='resend_confirmation_mail'  
+    class="form-inline"
+    method="post"
+    action="<?php echo $this->url('zfcuseradmin-confirmation-sent')?>"
+>
+    <button type="submit" class="btn btn-default">
+        <?php echo $this->translate("zfcuseradmin.account.resend_confirmation") ?>
+    </button>
+</form>
