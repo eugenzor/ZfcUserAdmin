@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-30 21:01+0200\n"
+"POT-Creation-Date: 2015-12-07 18:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,73 +18,99 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 ""
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:15
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:15
 msgid "Users"
 msgstr ""
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:21
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:21
 msgid "Add New User"
 msgstr ""
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:48
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:48
 msgid "Access"
 msgstr ""
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:52
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:52
 msgid "Edit"
 msgstr ""
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:56
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/edit.phtml:13
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:56
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/edit.phtml:13
 msgid "Really delete user?"
 msgstr ""
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:57
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/edit.phtml:14
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:57
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/edit.phtml:14
 msgid "Delete"
 msgstr ""
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/confirmation/sent.phtml:1
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:11
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/confirmation/sent.phtml:1
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:11
 msgid "zfcuseradmin.account.not_activated"
 msgstr ""
 "You have successfully registered but you account is not activated yet. "
 "Please check you mail and follow the activation link. If you didn't receive "
 "the link, please press the \"Resend\" button."
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/confirmation/sent.phtml:9
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:19
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/confirmation/sent.phtml:9
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:19
 msgid "zfcuseradmin.account.resend_confirmation"
 msgstr "Resend"
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:8
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:8
 msgid "Hello"
 msgstr ""
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:25
+#: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:25
 msgid "Sign Out"
 msgstr ""
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Service/Mailer.php:36
+#: /var/www/phpav.net/module/ZfcUserAdmin/src/ZfcUserAdmin/Service/Mailer.php:43
 #, php-format
 msgid "zfcuseradmin.confirmation_mail.subject%s"
 msgstr "Activation mail for site %s"
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Service/Mailer.php:41
+#: /var/www/phpav.net/module/ZfcUserAdmin/src/ZfcUserAdmin/Service/Mailer.php:58
 #, php-format
-msgid "zfcuseradmin.confirmation_mail.body_txt%s%s"
+msgid "zfcuseradmin.confirmation_mail.body_text%s%s"
 msgstr ""
 "Hi\n"
 "You have registered on site %s. To complete registration and activate your "
-"account, please,  follow this link: %s\n"
+"account, please,  follow this link: \n"
+"%s\n"
 "\n"
 "If you haven't been registering, please, ignore this message."
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Controller/ConfirmationController.php:50
+#: /var/www/phpav.net/module/ZfcUserAdmin/src/ZfcUserAdmin/Service/Mailer.php:62
+#, php-format
+msgid "zfcuseradmin.confirmation_mail.body_html%s%s"
+msgstr ""
+"<p class=\"greeting\">Hi</p>\n"
+"<p>You have registered on site <strong>%1$s</strong>. To complete "
+"registration and activate your account, please,  follow this link: </p>\n"
+"<table class=\"button\" width=\"100%\" border=\"0\" cellspacing=\"0\" "
+"cellpadding=\"0\">\n"
+"    <tr>\n"
+"        <td>\n"
+"            <table class=\"inner-wrapper\" border=\"0\" cellspacing=\"0\"\n"
+"                   cellpadding=\"0\" align=\"center\">\n"
+"                <tr>\n"
+"                    <td align=\"center\">\n"
+"                        <a href=\"%2$s\" target=\"_blank\"> %2$s</a>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</table>\n"
+"\n"
+"<p>If you haven't been registering, please, ignore this message.</p>"
+
+#: /var/www/phpav.net/module/ZfcUserAdmin/src/ZfcUserAdmin/Controller/ConfirmationController.php:50
 msgid "zfcuseradmin.activation_key_is_wrong"
 msgstr "Activation link is wrong. Please, ask new activation letter."
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Controller/ConfirmationController.php:65
+#: /var/www/phpav.net/module/ZfcUserAdmin/src/ZfcUserAdmin/Controller/ConfirmationController.php:65
 msgid "zfcuseradmin.activation_key_succesfull"
 msgstr "Your account was successfully activated. Thank you."
 

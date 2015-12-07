@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-30 19:18+0200\n"
+"POT-Creation-Date: 2015-11-30 21:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+""
 
 #: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/user-admin/list.phtml:15
 msgid "Users"
@@ -47,11 +48,14 @@ msgstr ""
 #: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:11
 msgid "zfcuseradmin.account.not_activated"
 msgstr ""
+"You have successfully registered but you account is not activated yet. "
+"Please check you mail and follow the activation link. If you didn't receive "
+"the link, please press the \"Resend\" button."
 
 #: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/confirmation/sent.phtml:9
 #: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:19
 msgid "zfcuseradmin.account.resend_confirmation"
-msgstr ""
+msgstr "Resend"
 
 #: /var/www/phpav.com/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:8
 msgid "Hello"
@@ -61,19 +65,26 @@ msgstr ""
 msgid "Sign Out"
 msgstr ""
 
-#: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Service/Mailer.php:34
-msgid "zfcuseradmin.confirmation_mail.subject"
-msgstr ""
-
 #: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Service/Mailer.php:36
-#: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Service/Mailer.php:37
-msgid "zfcuseradmin.confirmation_mail.body_txt"
+#, php-format
+msgid "zfcuseradmin.confirmation_mail.subject%s"
+msgstr "Activation mail for site %s"
+
+#: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Service/Mailer.php:41
+#, php-format
+msgid "zfcuseradmin.confirmation_mail.body_txt%s%s"
 msgstr ""
+"Hi\n"
+"You have registered on site %s. To complete registration and activate your "
+"account, please,  follow this link: %s\n"
+"\n"
+"If you haven't been registering, please, ignore this message."
 
 #: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Controller/ConfirmationController.php:50
 msgid "zfcuseradmin.activation_key_is_wrong"
-msgstr ""
+msgstr "Activation link is wrong. Please, ask new activation letter."
 
 #: /var/www/phpav.com/module/ZfcUserAdmin/src/ZfcUserAdmin/Controller/ConfirmationController.php:65
 msgid "zfcuseradmin.activation_key_succesfull"
-msgstr ""
+msgstr "Your account was successfully activated. Thank you."
+
