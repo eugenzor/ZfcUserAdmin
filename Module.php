@@ -47,6 +47,18 @@ class Module implements ServiceProviderInterface,
         $sm = $e->getApplication()->getServiceManager();
         $config = $sm->get('config');
 
+        // @TODO
+        //According to http://akrabat.com/zend-framework-2/integrating-bjyauthorize-with-zendnavigation/
+        $authorize = $sm->get('BjyAuthorize\Service\Authorize');
+        $acl = $authorize->getAcl();
+        $role = $authorize->getIdentity();
+
+        \Zend\View\Helper\Navigation::setDefaultAcl($acl);
+        \Zend\View\Helper\Navigation::setDefaultRole($role);
+
+
+        
+        
         if (!empty($config['zfcuser']['use_registration_form_captcha'])){
             $events = $e->getApplication()->getEventManager()->getSharedManager();
             $events->attach('ZfcUser\Form\Register','init', function($e) use($config) {
