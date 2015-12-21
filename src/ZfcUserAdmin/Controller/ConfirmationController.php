@@ -18,11 +18,14 @@ class ConfirmationController extends AbstractActionController
         if($this->getRequest()->isPost()){
             try{
                 $user = $this->zfcUserAuthentication()->getIdentity();
-                $mailer = $this->getServiceLocator('zfcuseradmin_mailer');
-                $mailer->sendConfirmationMessage($user);
-                $this->getFlashMessenger()->addMessage($e->getMessage());
+                $mailer = $this->getServiceLocator()->get('zfcuseradmin_mailer');
+                $translator = $this->getServiceLocator()->get('translator');
+                $mailer->sendConfirmationMail($user);
+                $this->flashMessenger()->addSuccessMessage(
+                        $translator->translate('Confirmation message was successfully sent. Check you email.')
+                );
             }catch(\Exception $e){
-                $this->getFlashMessenger()->addMessage($e->getMessage());
+                $this->fleshMessenger()->addErrorMessage($e->getMessage());
             }
             $this->redirect()->refresh();
         }
