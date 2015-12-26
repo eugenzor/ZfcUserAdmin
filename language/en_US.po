@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-07 18:45+0200\n"
-"PO-Revision-Date: 2015-12-25 22:29+0200\n"
+"PO-Revision-Date: 2015-12-26 16:39+0200\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,8 +47,8 @@ msgstr ""
 #: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/welcome/index.phtml:11
 msgid "zfcuseradmin.account.not_activated"
 msgstr ""
-"You have successfully registered but you account is not activated yet. "
-"Please check your mail and follow the activation link. If you didn't "
+"You have successfully registered, but your account is not activated yet. "
+"Please check your email and follow the activation link. If you didn't "
 "receive the link, please press the \"Resend\" button."
 
 #: /var/www/phpav.net/module/ZfcUserAdmin/view/zfc-user-admin/confirmation/sent.phtml:9
@@ -73,9 +73,10 @@ msgstr "Activation mail for site %s"
 #, php-format
 msgid "zfcuseradmin.confirmation_mail.body_text%s%s"
 msgstr ""
-"Hi\n"
-"You have registered on site %s. To complete registration and activate your "
-"account, please,  follow this link: \n"
+"Hi,\n"
+"You have successfully registered on site %s, but your account is not "
+"activated yet. \n"
+"Please check your email and follow the activation link:\n"
 "%s\n"
 "\n"
 "If you haven't been registering, please, ignore this message."
@@ -107,7 +108,7 @@ msgstr ""
 
 #: /var/www/phpav.net/module/ZfcUserAdmin/src/ZfcUserAdmin/Controller/ConfirmationController.php:50
 msgid "zfcuseradmin.activation_key_is_wrong"
-msgstr "Activation link is wrong. Please, ask new activation letter."
+msgstr "Activation link is wrong. Please, ask for the new activation letter."
 
 #: /var/www/phpav.net/module/ZfcUserAdmin/src/ZfcUserAdmin/Controller/ConfirmationController.php:65
 msgid "zfcuseradmin.activation_key_succesfull"
