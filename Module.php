@@ -49,12 +49,14 @@ class Module implements ServiceProviderInterface,
 
         // @TODO
         //According to http://akrabat.com/zend-framework-2/integrating-bjyauthorize-with-zendnavigation/
-        $authorize = $sm->get('BjyAuthorize\Service\Authorize');
-        $acl = $authorize->getAcl();
-        $role = $authorize->getIdentity();
+        if ($sm->has('BjyAuthorize\Service\Authorize')){
+            $authorize = $sm->get('BjyAuthorize\Service\Authorize');
+            $acl = $authorize->getAcl();
+            $role = $authorize->getIdentity();
 
-        \Zend\View\Helper\Navigation::setDefaultAcl($acl);
-        \Zend\View\Helper\Navigation::setDefaultRole($role);
+            \Zend\View\Helper\Navigation::setDefaultAcl($acl);
+            \Zend\View\Helper\Navigation::setDefaultRole($role);
+        }
 
 
         
@@ -111,11 +113,12 @@ class Module implements ServiceProviderInterface,
             $zfcServiceEvents = $sm->get('zfcuser_user_service')->getEventManager();
             $zfcServiceEvents->attach('register.post', function($e) use ($sm) {
                 $arrowManager = $sm->get('zfcuseradmin_arrow_manager');
-                $mailer = $sm->get('zfcuseradmin_mailer');
-                $user = $e->getParam('user');
-                
-                $mailer->sendConfirmationMail($user);
+                if ($arrowManager->get('send_confirmation_message')){
+                    $mailer = $sm->get('zfcuseradmin_mailer');
+                    $user = $e->getParam('user');
 
+                    $mailer->sendConfirmationMail($user);
+                }
             });
         }
         

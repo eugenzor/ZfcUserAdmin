@@ -9,6 +9,7 @@
 namespace ZfcUserAdmin\Service;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorAwareTrait;
+use Zend\Db\TableGateway\TableGateway;
 
 /**
  * Description of Roles
@@ -23,7 +24,9 @@ class Roles  implements ServiceLocatorAwareInterface
     function getAvailableRolesDictionary()
     {
         $options = array();
-        $allRoles2 = $this->serviceLocator->get('BjyAuthorize\Service\RoleDbTableGateway')->select();
+        $db = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+        $rolesTable = new TableGateway('user_role', $db);
+        $allRoles2 = $rolesTable->select();
         foreach($allRoles2 as $role){
             $options[$role->id] = $role->role_id;
         }
@@ -36,7 +39,7 @@ class Roles  implements ServiceLocatorAwareInterface
             $userId = $userId->getId();
         }
         $db = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-        $linker = new \Zend\Db\TableGateway\TableGateway('user_role_linker', $db);
+        $linker = new TableGateway('user_role_linker', $db);
         $linker->delete(array('user_id'=>$userId));
 
 

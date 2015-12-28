@@ -27,10 +27,10 @@ class ConfirmationController extends AbstractActionController
             }catch(\Exception $e){
                 $this->fleshMessenger()->addErrorMessage($e->getMessage());
             }
-            $this->redirect()->refresh();
+            return $this->redirect()->refresh();
         }
         if ($this->isAllowed('user-interface', 'use')){
-            $this->redirect()->toRoute('zfcuseradmin-welcome');
+            return $this->redirect()->toRoute('zfcuseradmin-welcome');
         }
     }
 
@@ -64,15 +64,13 @@ class ConfirmationController extends AbstractActionController
             /* @var $roles \ZfcUserAdmin\Service\Roles */
             $roles = $this->getServiceLocator()->get('zfcuseradmin_roles');
             $roles->updateUserRoles($user, $newRoles);
-            $this->flashMessenger()->addMessage(
+            $this->flashMessenger()->addSuccessMessage(
                 $translator->translate('zfcuseradmin.activation_key_succesfull')
                     //Your account was succesfully activated
             );
-            $this->redirect()->toRoute('zfcuseradmin-welcome');
+            return $this->redirect()->toRoute('zfcuseradmin-welcome');
         } catch (\Exception $ex) {
-            echo $ex->getMessage();
-            $this->flashMessenger()->addMessage($ex->getMessage());
-//            $this->redirect()->toRoute('zfcuseradmin-confirmation-sent');
+            $this->flashMessenger()->addErrorMessage($ex->getMessage());
         }
 
     }

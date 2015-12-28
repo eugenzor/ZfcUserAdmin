@@ -20,12 +20,6 @@ class CliController extends AbstractActionController
 {
     function installAction()
     {
-        /* @var $mailer \ZfcUserAdmin\Service\Mailer */
-        $mailer = $this->getServiceLocator()->get('zfcuseradmin_mailer');
-        $mailer->sendConfirmationMail([]);
-        return;
-        
-        
         $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
         $platformName = get_class($adapter->getPlatform());
         switch ($platformName){
@@ -42,18 +36,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8",
-                    "
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8",
-                    "
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8",
                     "
 CREATE TABLE IF NOT EXISTS `user_role` (
@@ -74,8 +56,8 @@ CREATE TABLE IF NOT EXISTS `user_role_linker` (
                     "
 INSERT IGNORE INTO `user_role` (`id`, `role_id`, `is_default`, `parent_id`) VALUES
 (1, 'guest', 1, null),
-(2, 'user_unconformited', 0, null),
-(3, 'user_conformited', 0, null),
+(2, 'registered', 0, 1),
+(3, 'user', 0, 2),
 (4, 'admin', 4, 3)"
                 );
                 foreach($queries as $query){
@@ -90,6 +72,18 @@ INSERT IGNORE INTO `user_role` (`id`, `role_id`, `is_default`, `parent_id`) VALU
         }
         
         if ($this->params()->fromRoute('adduser')||$this->params()->fromRoute('u')){
+
+
+
+
+
+
+
+
+
+
+
+
             $this->adduserAction();
         }
     }

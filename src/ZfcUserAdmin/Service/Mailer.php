@@ -25,8 +25,6 @@ class Mailer implements ServiceLocatorAwareInterface
     
     function sendConfirmationMail($user)
     {
-        $r = $this->getServiceLocator()->get('Request');
-        
         $config = $this->getServiceLocator()->get('config');
 
         if (isset($config['zfcuseradmin']['confirmation'])){
