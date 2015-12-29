@@ -25,7 +25,7 @@ class ConfirmationController extends AbstractActionController
                         $translator->translate('Confirmation message was successfully sent. Check you email.')
                 );
             }catch(\Exception $e){
-                $this->fleshMessenger()->addErrorMessage($e->getMessage());
+                $this->flashMessenger()->addErrorMessage($e->getMessage());
             }
             return $this->redirect()->refresh();
         }

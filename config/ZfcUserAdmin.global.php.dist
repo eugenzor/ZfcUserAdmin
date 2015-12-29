@@ -5,26 +5,35 @@
  * If you have a ./config/autoload/ directory set up for your project, you can
  * drop this config file in it and change the values as you wish.
  */
-$settings = array(
-    
 
-    /**
-     * Mapper for ZfcUser
-     *
-     * Set the mapper to be used here
-     * Currently Available mappers
-     * 
-     * ZfcUserAdmin\Mapper\UserDoctrine
-     *
-     * By default this is using
-     * ZfcUserAdmin\Mapper\UserZendDb
-     */
-    'user_mapper' => 'ZfcUserAdmin\Mapper\UserDoctrine',
-);
-
-/**
- * You do not need to edit below this line
- */
 return array(
-    'zfcuseradmin' => $settings
+
+    'zfcuseradmin' => array(
+        /**
+         * For user registration with email confirmations
+         * If 0 users will register without confirmation
+         */
+        'send_confirmation_message' => 1,
+        
+        /**
+         * Role after registration
+         */
+        'registered_role' => 2,
+        'confirmation' => array(
+            /**
+             * Email of confirmation robot. Change it to your
+             */
+            'from_email' => 'noreply@test.com',
+            
+            /**
+             * Name of confirmation robot
+             */
+            'from_name' => 'Robot',
+            
+            /**
+             * Salt for confirmation link. Change it
+             */
+            'salt' => 'ezbiOgs4'
+        )
+    )
 );

@@ -9,9 +9,8 @@
 namespace ZfcUserAdmin\Service;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorAwareTrait;
-use Zend\Mail;
-use Zend\Mime\Message as MimeMessage;
-use Zend\Mime\Part as MimePart;
+
+use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * Description of Mailer
@@ -29,7 +28,11 @@ class Mailer implements ServiceLocatorAwareInterface
 
         if (isset($config['zfcuseradmin']['confirmation'])){
             $sender = $config['zfcuseradmin']['confirmation'];
-            $mail = new Mail\Message();
+            
+            $mail = new PHPMailer;
+            $mail->isHTML(true);
+            $mail->setFrom($sender['from_email'], $sender['from_name']);
+            $mail->addAddress($user->getEmail(), $user->getDisplayName());
 
             $translator = $this->getServiceLocator()->get('translator');
             $request = $this->getServiceLocator()->get('Request');
@@ -37,12 +40,8 @@ class Mailer implements ServiceLocatorAwareInterface
             $host = $uri->getHost();
 
             
-            $mail->setFrom($sender['from_email'], $sender['from_name']);
-            $mail->addTo($user->getEmail(), $user->getDisplayName());
-            
             $translation = $translator->translate('zfcuseradmin.confirmation_mail.subject%s');
-            $subject = sprintf($translation, $host);
-            $mail->setSubject($subject);
+            $mail->Subject = sprintf($translation, $host);
             
             if (isset($config['zfcuseradmin']['confirmation']['salt'])){
                 $user->setSalt($config['zfcuseradmin']['confirmation']['salt']);
@@ -56,24 +55,13 @@ class Mailer implements ServiceLocatorAwareInterface
             );
 
             $translation = $translator->translate('zfcuseradmin.confirmation_mail.body_text%s%s');
-            $bodyText = sprintf($translation, $host, $confirmationUrl);
-            $bodyTextPart = new MimePart($bodyText);
-            $bodyTextPart->setType('text/plain');
-                    
+            $mail->AltBody = sprintf($translation, $host, $confirmationUrl);
             
             $translation = $translator->translate('zfcuseradmin.confirmation_mail.body_html%s%s');
-            $bodyHtml = sprintf($translation, $host, $confirmationUrl);
-            $bodyHtmlPart = new MimePart($bodyHtml);
-            $bodyHtmlPart->setType('text/html');
-            
-            $message = new MimeMessage();
-            $message->setParts(array($bodyTextPart, $bodyHtmlPart));
-            
-            $mail->setBody($message);
-
-            $transport = new Mail\Transport\Sendmail();
-            $transport->send($mail);
+            $mail->Body = sprintf($translation, $host, $confirmationUrl);
+            $mail->send();
         }
 
     }
+    
 }
