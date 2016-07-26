@@ -108,7 +108,7 @@ return array(
                 $mapper->setDbAdapter($sm->get('zfcuser_zend_db_adapter'));
                 $entityClass = $zfcUserOptions->getUserEntityClass();
                 $mapper->setEntityPrototype(new $entityClass);
-                $mapper->setHydrator($sm->get('zfcuser_user_hydrator'));
+                $mapper->setHydrator(new ZfcUser\Mapper\UserHydrator());
                 $mapper->setTableName($zfcUserOptions->getTableName());
             }
 

@@ -24,9 +24,10 @@ class CliController extends AbstractActionController
         $platformName = get_class($adapter->getPlatform());
         switch ($platformName){
             case 'Zend\Db\Adapter\Platform\Mysql':
+                $userTalbeName = $this->getServiceLocator()->get('zfcuser_user_mapper')->getTableName();
                 $queries = array(
                     "
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE IF NOT EXISTS `$userTalbeName` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
@@ -71,19 +72,7 @@ INSERT IGNORE INTO `user_role` (`id`, `role_id`, `is_default`, `parent_id`) VALU
                 throw new \RuntimeException("Platform $platformName isn't supported");
         }
         
-        if ($this->params()->fromRoute('adduser')||$this->params()->fromRoute('u')){
-
-
-
-
-
-
-
-
-
-
-
-
+        if ($this->params()->fromRoute('adduser')||$this->params()->fromRoute('u')) {
             $this->adduserAction();
         }
     }
