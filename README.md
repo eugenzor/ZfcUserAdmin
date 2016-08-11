@@ -10,7 +10,7 @@ This module provides an interface to create/edit/delete users.
 
 ### Using composer
 
-1. Add `danielss89/zfc-user-admin` (version `dev-master`) to requirements
+1. Add `eugenzor/zfc-user-admin` (version `dev-master`) to requirements
 2. Run `update` command on composer
 
 ### Manually
@@ -62,3 +62,5 @@ TODO: add more usage information and module options list
 * [Daniel Strøm](https://github.com/Danielss89)
 * [Martin Shwalbe](https://github.com/Hounddog)
 * [Vladimir Garvardt](https://github.com/vgarvardt)
+* [Eugene Galenko](https://github.com/eugenzor)
+
